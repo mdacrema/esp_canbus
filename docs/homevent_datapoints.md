@@ -96,6 +96,15 @@ CoolVent activation as *outside temperature > 27 °C and outside temperature > e
 Expected confirmation: `Status vent. regulation` (39652) switching to 5 (CoolVent active) in summer,
 compared with outside and extract air temperatures.
 
+### Party mode power (hypothesis)
+
+`50-0-40714` = 100 is probably the party mode power in %. The party mode capture
+([`candump_party_mode.log`](candump_party_mode.log)) shows every party action as two SETs: the duration
+to `0x07DA` (= 2010) and the power in % to `0x9F0A` (= 40714). Not verified on this unit: it read 100
+before and during a 1 h party mode started from Home Assistant, which writes only the duration
+(fan set values 61 / 71 %, the same as the air volume knob at 100 %). Writing 0 to `50-0-2010`
+ended the party mode immediately (fan set values back to 37 / 43 %).
+
 ## Unknown (answering, meaning not established)
 
 `50-0-500` (ff), `504` (ff), `502` ("NUOVO"), `37601`, `37603`, `37605`, `38602…38605`, `38607…38612`
@@ -103,7 +112,7 @@ compared with outside and extract air temperatures.
 `39600` (air quality control, official), `39602` = 90, `39603` = 1, `39604` = 1, `39607` = 13,
 `39608` = 0, `39609` = 20, `39610` = 2 (model/size code?), `39611` = 170 (17.0 °C?), `39614` = 0,
 `39615` = 100 / `39619` = 15 (modulation max/min?), `39616` = 30, `39618` = 0, `39620` = 4,
-`40689` = 0, `40690…40713` = 24 × 0/1 (hourly program?), `40714` = 100, `40715…40718` = 500 / 2000 / 3000 / 6000,
+`40689` = 0, `40690…40713` = 24 × 0/1 (hourly program?), `40715…40718` = 500 / 2000 / 3000 / 6000,
 `40719` = 70, `0-0-20003` = 1234, `0-0-20020/20021/20022/20027/20034`, `0-0-20126/20127`, `0-0-20200…20204`,
 `0-0-21058` (0x7fffffd6), `0-0-21101/21102` (0x8000), `0-0-41604/41605/41610/41611/41612`.
 
